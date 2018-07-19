@@ -27,7 +27,7 @@ address = ":8080"
 # Let's encrypt configuration
 [acme]
 email = "martin@somers.co" #any email id will work
-storage="etc/traefik/acme.json"
+storage="acme.json"
 entryPoint = "https"
 acmeLogging=true
 onDemand = false #create certificate when container is created
