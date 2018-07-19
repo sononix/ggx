@@ -1,90 +1,49 @@
-################################################################
-# Global configuration
-################################################################
-logLevel = "DEBUG"
+#debug = true
 
-# Entrypoints to be used by frontends that do not specify any entrypoint.
-# Each frontend can specify its own entrypoints.
-defaultEntryPoints = ["http", "https"]
+logLevel = "DEBUG" #DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+InsecureSkipVerify = true
+defaultEntryPoints = ["https", "http"]
 
+# WEB interface of Traefik - it will show web page with overview of frontend and backend configurations
+[web]
+address = ":8080"
+  # [web.auth.basic]
+  # usersFile = "/shared/.htpasswd"
+
+# Force HTTPS
 [entryPoints]
   [entryPoints.http]
   address = ":80"
-  [entryPoints.http.redirect]
+    [entryPoints.http.redirect]
     entryPoint = "https"
   [entryPoints.https]
   address = ":443"
-    # [entryPoints.https.tls]
-    #   [[entryPoints.https.tls.certificates]]
-    #   certFile = "/ssl/nua.media.crt"
-    #   keyFile = "/ssl/nua.media.key"
-    #   [[entryPoints.https.tls.certificates]]
-    #   certFile = "/ssl/www.nua.media.crt"
-    #   keyFile = "/ssl/www.nua.media.key"
+    [entryPoints.https.tls]
 
-################################################################
-# ACME (Let's Encrypt): automatic SSL
-################################################################
+[file]
+  watch = true
+  filename = "/etc/traefik/rules.toml"
+
+# Let's encrypt configuration
 [acme]
-email = "admin@somers.co"
-storage = "etc/traefik/acme.json"
-# used for staging
-caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
-acmeLogging = true
-onDemand = false
-OnHostRule = false
+email = "martin@somers.co" #any email id will work
+storage="etc/traefik/acme.json"
 entryPoint = "https"
-
+acmeLogging=true
+onDemand = false #create certificate when container is created
 [acme.dnsChallenge]
-provider = "godaddy" # DNS Provider name (cloudflare, OVH, gandi...)
-delayBeforeCheck = 0
-
+  provider = "godaddy"
+  delayBeforeCheck = 0
 [[acme.domains]]
-  main = "*.somers.co"
+   main = "somers.co"
+[[acme.domains]]
+   main = "*.somers.co"
 
-################################################################
-# Web configuration backend
-################################################################
-# [web]
-#
-# address = ":8080"
-#   [web.auth.basic]
-#   users = ["admin:$apr1$BpTrStyg$/Mi6lMRwn8ITinXi/BqjS/"]
-
-################################################################
-# Docker configuration backend
-################################################################
+# Connection to docker host system (docker.sock)
 [docker]
-
-# Docker server endpoint. Can be a tcp or a unix socket endpoint.
 endpoint = "unix:///var/run/docker.sock"
-
-# Default domain used.
-# Can be overridden by setting the "traefik.domain" label on a container.
-domain = "docker.localhost"
-
-# Enable watch docker changes
+domain = "somers.co"
 watch = true
-exposedByDefault = true
-usebindportip = true
-
-################################################################
-# Web configuration backend
-################################################################
-
-# Enable web configuration backend
-
-
-################################################################
-# Docker configuration backend
-################################################################
-
-[frontends]
-  [frontends.frontend1]
-  backend = "tremage"
-    [frontends.frontend1.routes.test_1]
-    rule = "Host:www.tremage.com,tremage.com"
-[frontends.frontend2]
-  backend = "c2ostudio"
-    [frontends.frontend2.routes.test_2]
-    rule = "Host:www.c2o.studio,c2o.studio"
+# This will hide all docker containers that don't have explicitly
+# set label to "enable"
+exposedbydefault = false
