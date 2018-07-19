@@ -1,0 +1,80 @@
+version: "3"
+
+services:
+  reverse-proxy:
+    image: traefik:v1.7 #The official Traefik docker image
+    command: --api --docker --logLevel=DEBUG # This log level can also be INFO
+    ports:
+      - "80:80"     #The HTTP port
+      - "8080:8080" #The Web UI (enabled by --api)
+      - "443:443"
+    labels:
+      - "traefik.backend=nginx"
+      - "traefik.frontend.rule=Host: nua.media, www.nua.media"
+      - "traefik.docker.network=proxy"
+      - "traefik.frontend.entryPoints: http,https"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock #So that Traefik can listen to the Docker events
+      - $PWD/traefik.toml:/traefik.toml
+      - $PWD/acme.json:/etc/traefik/acme.json
+      - $PWD/ssl:/ssl
+    environment:
+      - AWS_ACCESS_KEY_ID:${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY:${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION:${AWS_REGION}
+      - AWS_HOSTED_ZONE_ID:${AWS_HOSTED_ZONE_ID}
+      - AWS_SDK_LOAD_CONFIG=1
+      - ACME_AGREE=true
+    networks:
+      - proxy
+    restart:
+      always
+
+  tremage:
+    image: 'test-caddy'
+    labels:
+      - "traefik.backend=tremage"
+      - "traefik.frontend.rule=Host:www.tremage.com,tremage.com"
+      - "traefik.docker.network=proxy"
+      - "traefik.frontend.entryPoints: http,https"
+      - "traefik.port=2015"
+      - "traefik.port=443"
+    volumes:
+      - $PWD/Caddyfilec2o:/etc/Caddyfile
+      - $PWD/tremage:/srv
+      # - $PWD/.caddy:/etc/caddycerts
+    environment:
+      # - CADDYPATH=/etc/caddycerts
+      # - AWS_ACCESS_KEY_ID:${AWS_ACCESS_KEY_ID}
+      # - AWS_SECRET_ACCESS_KEY:${AWS_SECRET_ACCESS_KEY}
+      # - AWS_REGION:${AWS_REGION}
+      # - AWS_HOSTED_ZONE_ID:${AWS_HOSTED_ZONE_ID}
+      # - ACME_AGREE=true
+      - ENABLE_TELEMETRY=false
+    networks:
+      - proxy
+#
+#   c2ostudio:
+#     image: 'test-caddy'
+#     labels:
+#       - "traefik.backend=c2ostudio"
+#       - "traefik.frontend.rule=Host:www.c2o.studio,c2o.studio"
+#       - "traefik.docker.network=proxy"
+#       - "traefik.port=2015"
+#       - "traefik.port=443"
+#     volumes:
+#       - ./Caddyfilec2o:/etc/Caddyfile
+#       - ./c2ostudio:/srv
+#       - ./.caddy:/etc/caddycerts
+#     environment:
+#       - CADDYPATH=/etc/caddycerts
+#     networks:
+#       - traefik_webgateway
+#
+volumes:
+  data:
+networks:
+  proxy:
+    external: true
+  internal:
+    external: false
