@@ -45,11 +45,11 @@ entryPoint = "https"
 ################################################################
 # Web configuration backend
 ################################################################
-[web]
-
-address = ":8080"
-  [web.auth.basic]
-  users = ["admin:$apr1$BpTrStyg$/Mi6lMRwn8ITinXi/BqjS/"]
+# [web]
+#
+# address = ":8080"
+#   [web.auth.basic]
+#   users = ["admin:$apr1$BpTrStyg$/Mi6lMRwn8ITinXi/BqjS/"]
 
 ################################################################
 # Docker configuration backend
