@@ -1,47 +1,24 @@
-#debug = true
-
-logLevel = "DEBUG" #DEBUG, INFO, WARN, ERROR, FATAL, PANIC
-InsecureSkipVerify = true
-defaultEntryPoints = ["https", "http"]
-
-# WEB interface of Traefik - it will show web page with overview of frontend and backend configurations
-[web]
-address = ":8080"
-  # [web.auth.basic]
-  # usersFile = "/shared/.htpasswd"
-
-# Force HTTPS
 [entryPoints]
   [entryPoints.http]
   address = ":80"
-    [entryPoints.http.redirect]
-    entryPoint = "https"
   [entryPoints.https]
   address = ":443"
     [entryPoints.https.tls]
 
-[file]
-  watch = true
-  filename = "/etc/traefik/rules.toml"
-
-# Let's encrypt configuration
 [acme]
-email = "martin@somers.co" #any email id will work
-storage = "etc/traefik/acme.json"
+email = "test@traefik.io"
+storage = "acme.json"
+onHostRule = true
+caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
 entryPoint = "https"
-acmeLogging=true
-onDemand = false #create certificate when container is created
-[acme.dnsChallenge]
-  provider = "godaddy"
-  delayBeforeCheck = 0
-[[acme.domains]]
-   main = "*.somers.co"
+  [acme.httpChallenge]
+  entryPoint = "http"
 
-# Connection to docker host system (docker.sock)
+[[acme.domains]]
+main = "*.somers.co"
+
 [docker]
 endpoint = "unix:///var/run/docker.sock"
 domain = "somers.co"
 watch = true
-# This will hide all docker containers that don't have explicitly
-# set label to "enable"
-exposedbydefault = false
+exposedByDefault = false
