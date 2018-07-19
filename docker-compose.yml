@@ -40,8 +40,10 @@ services:
       - $PWD/tremage:/srv
       # - $PWD/.caddy:/etc/caddycerts
     environment:
-      - GD_Key:${GD_Key}
-      - GD_Secret:${GD_Secret}
+      - AWS_ACCESS_KEY_ID:${AKIAIQFSVXHCOJMADPVQ}
+      - AWS_SECRET_ACCESS_KEY:${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}
+      - AWS_REGION:${eu-west-1}
+      - AWS_HOSTED_ZONE_ID:${Z24PUNH2YX}
       - ACME_AGREE=true
       - ENABLE_TELEMETRY=false
     networks:
