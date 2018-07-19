@@ -27,15 +27,13 @@ address = ":8080"
 # Let's encrypt configuration
 [acme]
 email = "martin@somers.co" #any email id will work
-storage="acme.json"
+storage = "etc/traefik/acme.json"
 entryPoint = "https"
 acmeLogging=true
 onDemand = false #create certificate when container is created
 [acme.dnsChallenge]
   provider = "godaddy"
   delayBeforeCheck = 0
-[[acme.domains]]
-   main = "somers.co"
 [[acme.domains]]
    main = "*.somers.co"
 

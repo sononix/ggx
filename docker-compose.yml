@@ -16,7 +16,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock #So that Traefik can listen to the Docker events
       - $PWD/traefik.toml:/traefik.toml
-      - $PWD/acme.json:/acme.json
+      - $PWD/acme.json:/etc/traefik/acme.json
     environment:
       - GODADDY_API_KEY:${GODADDY_API_KEY}
       - GODADDY_API_SECRET:${GODADDY_API_SECRET}
@@ -26,26 +26,26 @@ services:
     restart:
       always
 
-  sononix:
-    image: 'test-caddy'
-    labels:
-      - "traefik.backend=sononix"
-      - "traefik.frontend.rule=Host:www.sononix.com,sononix.com"
-      - "traefik.docker.network=proxy"
-      - "traefik.frontend.entryPoints: http,https"
-      - "traefik.port=2015"
-      - "traefik.port=443"
-    volumes:
-      - $PWD/Caddyfile:/etc/Caddyfile
-      - $PWD/tremage:/srv
-      # - $PWD/.caddy:/etc/caddycerts
-    environment:
-      - GODADDY_API_KEY:${GODADDY_API_KEY}
-      - GODADDY_API_SECRET:${GODADDY_API_SECRET}
-      - ACME_AGREE=true
-      - ENABLE_TELEMETRY=false
-    networks:
-      - proxy
+  # sononix:
+  #   image: 'test-caddy'
+  #   labels:
+  #     - "traefik.backend=sononix"
+  #     - "traefik.frontend.rule=Host:www.sononix.com,sononix.com"
+  #     - "traefik.docker.network=proxy"
+  #     - "traefik.frontend.entryPoints: http,https"
+  #     - "traefik.port=2015"
+  #     - "traefik.port=443"
+  #   volumes:
+  #     - $PWD/Caddyfile:/etc/Caddyfile
+  #     - $PWD/tremage:/srv
+  #     # - $PWD/.caddy:/etc/caddycerts
+  #   environment:
+  #     - GODADDY_API_KEY:${GODADDY_API_KEY}
+  #     - GODADDY_API_SECRET:${GODADDY_API_SECRET}
+  #     - ACME_AGREE=true
+  #     - ENABLE_TELEMETRY=false
+  #   networks:
+  #     - proxy
 #
 #   c2ostudio:
 #     image: 'test-caddy'
