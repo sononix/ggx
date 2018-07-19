@@ -18,8 +18,8 @@ services:
       - $PWD/traefik.toml:/traefik.toml
       - $PWD/acme.json:/acme.json
     environment:
-      - GD_Key:${GD_Key}
-      - GD_Secret:${GD_Secret}
+      - GODADDY_API_KEY:${GODADDY_API_KEY}
+      - GODADDY_API_SECRET:${GODADDY_API_SECRET}
       - ACME_AGREE=true
     networks:
       - proxy
