@@ -26,17 +26,17 @@ services:
     restart:
       always
 
-  tremage:
+  sononix:
     image: 'test-caddy'
     labels:
-      - "traefik.backend=tremage"
-      - "traefik.frontend.rule=Host:www.tremage.com,tremage.com"
+      - "traefik.backend=sononix"
+      - "traefik.frontend.rule=Host:www.sononix.com,sononix.com"
       - "traefik.docker.network=proxy"
       - "traefik.frontend.entryPoints: http,https"
       - "traefik.port=2015"
       - "traefik.port=443"
     volumes:
-      - $PWD/Caddyfilec2o:/etc/Caddyfile
+      - $PWD/Caddyfile:/etc/Caddyfile
       - $PWD/tremage:/srv
       # - $PWD/.caddy:/etc/caddycerts
     environment:

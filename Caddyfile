@@ -1,6 +1,6 @@
-somers.co, www.somers.co {
+sononix.com, www.sononix.com {
     root /srv
-    tls admin@somers.co {
+    tls admin@sononix.com {
       dns godaddy
     }
 }
