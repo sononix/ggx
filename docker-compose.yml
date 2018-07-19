@@ -10,20 +10,16 @@ services:
       - "443:443"
     labels:
       - "traefik.backend=nginx"
-      - "traefik.frontend.rule=Host: nua.media, www.nua.media"
+      - "traefik.frontend.rule=Host: somers.co, www.somers.co"
       - "traefik.docker.network=proxy"
       - "traefik.frontend.entryPoints: http,https"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock #So that Traefik can listen to the Docker events
       - $PWD/traefik.toml:/traefik.toml
       - $PWD/acme.json:/etc/traefik/acme.json
-      - $PWD/ssl:/ssl
     environment:
-      - AWS_ACCESS_KEY_ID:${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY:${AWS_SECRET_ACCESS_KEY}
-      - AWS_REGION:${AWS_REGION}
-      - AWS_HOSTED_ZONE_ID:${AWS_HOSTED_ZONE_ID}
-      - AWS_SDK_LOAD_CONFIG=1
+      - GD_Key:${GD_Key}
+      - GD_Secret:${GD_Secret}
       - ACME_AGREE=true
     networks:
       - proxy
@@ -44,12 +40,9 @@ services:
       - $PWD/tremage:/srv
       # - $PWD/.caddy:/etc/caddycerts
     environment:
-      # - CADDYPATH=/etc/caddycerts
-      # - AWS_ACCESS_KEY_ID:${AWS_ACCESS_KEY_ID}
-      # - AWS_SECRET_ACCESS_KEY:${AWS_SECRET_ACCESS_KEY}
-      # - AWS_REGION:${AWS_REGION}
-      # - AWS_HOSTED_ZONE_ID:${AWS_HOSTED_ZONE_ID}
-      # - ACME_AGREE=true
+      - GD_Key:${GD_Key}
+      - GD_Secret:${GD_Secret}
+      - ACME_AGREE=true
       - ENABLE_TELEMETRY=false
     networks:
       - proxy

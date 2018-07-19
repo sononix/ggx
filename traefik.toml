@@ -14,19 +14,19 @@ defaultEntryPoints = ["http", "https"]
     entryPoint = "https"
   [entryPoints.https]
   address = ":443"
-    [entryPoints.https.tls]
-      [[entryPoints.https.tls.certificates]]
-      certFile = "/ssl/nua.media.crt"
-      keyFile = "/ssl/nua.media.key"
-      [[entryPoints.https.tls.certificates]]
-      certFile = "/ssl/www.nua.media.crt"
-      keyFile = "/ssl/www.nua.media.key"
+    # [entryPoints.https.tls]
+    #   [[entryPoints.https.tls.certificates]]
+    #   certFile = "/ssl/nua.media.crt"
+    #   keyFile = "/ssl/nua.media.key"
+    #   [[entryPoints.https.tls.certificates]]
+    #   certFile = "/ssl/www.nua.media.crt"
+    #   keyFile = "/ssl/www.nua.media.key"
 
 ################################################################
 # ACME (Let's Encrypt): automatic SSL
 ################################################################
 [acme]
-email = "admin@nua.media"
+email = "admin@somers.co"
 storage = "etc/traefik/acme.json"
 # used for staging
 caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
