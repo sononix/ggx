@@ -5,10 +5,12 @@ services:
     image: traefik:v1.6.5 #The official Traefik docker image
     command: --web --docker --logLevel=DEBUG
     ports:
-      - "8080:8080"
+      - "443:443"
     labels:
       - "traefik.frontend.rule=Host: nua.media, www.nua.media"
       - "traefik.port=8080"
+      - "traefik.port=80"
+      - "traefik.port=443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock #So that Traefik can listen to the Docker events
       - $PWD/traefik.toml:/traefik.toml
