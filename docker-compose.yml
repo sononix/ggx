@@ -3,7 +3,7 @@ version: "3"
 services:
   reverse-proxy:
     image: traefik:v1.6.5 #The official Traefik docker image
-    command: --web --docker --docker.domain=docker.localhost --logLevel=DEBUG
+    command: --web --docker --logLevel=DEBUG
     ports:
       - "8080:8080"
     labels:
