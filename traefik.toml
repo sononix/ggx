@@ -23,4 +23,5 @@ entryPoint = "http"
 [docker]
 endpoint = "unix:///var/run/docker.sock"
 domain = "nua.media"
-watch = true
+ExposedByDefault = true
+Watch = true
