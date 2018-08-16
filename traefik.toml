@@ -1,7 +1,7 @@
 defaultEntryPoints = ["http", "https"]
 [entryPoints]
   [entryPoints.http]
-  address = ":80"
+  address = ":8080"
     [entryPoints.http.redirect]
     entryPoint = "https"
   [entryPoints.https]
