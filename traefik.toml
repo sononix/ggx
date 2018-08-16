@@ -18,10 +18,10 @@ entryPoint = "http"
 [acme.dnsChallenge]
   provider = "godaddy"
 [[acme.domain]]
-   main = "*.somers.co"
+   main = "*.nua.media"
 
 [docker]
 endpoint = "unix:///var/run/docker.sock"
-domain = "somers.co"
+domain = "nua.media"
 watch = true
 exposedByDefault = false
