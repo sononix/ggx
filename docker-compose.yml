@@ -5,9 +5,7 @@ services:
     image: traefik:v1.6.5 #The official Traefik docker image
     command: --web --docker --logLevel=DEBUG
     ports:
-      - "80:80"     #The HTTP port
-      - "443:443"
-      - "8080:8080" 
+      - "8080:8080"
     labels:
       - "traefik.frontend.rule=Host: nua.media, www.nua.media"
       - "traefik.port=8080"
