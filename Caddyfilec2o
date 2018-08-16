@@ -1,4 +1,6 @@
-tremage.com, www.tremage.com {
+c2o.studio, www.c2o.studio {
     root /srv
-    tls off
+    tls admin@c2o.studio {
+      dns godaddy
+    }
 }

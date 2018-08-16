@@ -1,6 +1,6 @@
-sononix.com, www.sononix.com {
+tremage.com, www.tremage.com {
     root /srv
-    tls admin@sononix.com {
+    tls admin@tremage.com {
       dns godaddy
     }
 }
