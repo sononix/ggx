@@ -36,6 +36,8 @@ services:
       - "./tremage:/srv"
       # - $PWD/.caddy:/etc/caddycerts
     environment:
+      - GODADDY_API_KEY
+      - GODADDY_API_SECRET
       - ACME_AGREE=true
       - ENABLE_TELEMETRY=false
     networks:
