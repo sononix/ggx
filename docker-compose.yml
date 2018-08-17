@@ -26,26 +26,25 @@ services:
     restart:
       always
   #
-  # tremage:
-  #   image: 'test-caddy:latest'
-  #   labels:
-      # - "traefik.backend=tremage"
-      # - "traefik.frontend.rule=Host:www.tremage.com,tremage.com"
-      # - "traefik.docker.network=proxy"
-      # - "traefik.frontend.entryPoints: http,https"
-      # - "traefik.port=2015"
-      # - "traefik.port=443"
-  #   volumes:
-  #     - $PWD/Caddyfile:/etc/Caddyfile
-  #     - $PWD/tremage:/srv
-  #     # - $PWD/.caddy:/etc/caddycerts
-  #   environment:
-  #     - GODADDY_API_KEY:${GODADDY_API_KEY}
-  #     - GODADDY_API_SECRET:${GODADDY_API_SECRET}
-  #     - ACME_AGREE=true
-  #     - ENABLE_TELEMETRY=false
-  #   networks:
-  #     - proxy
+  tremage:
+    image: 'test-caddy:latest'
+    labels:
+      - "traefik.backend=tremage"
+      - "traefik.frontend.rule=Host:www.tremage.com,tremage.com"
+      - "traefik.docker.network=proxy"
+      - "traefik.frontend.entryPoints: http,https"
+      - "traefik.port=80"
+    volumes:
+      - "./Caddyfile:/etc/Caddyfile"
+      - "./tremage:/srv"
+      # - $PWD/.caddy:/etc/caddycerts
+    environment:
+      - GODADDY_API_KEY:${GODADDY_API_KEY}
+      - GODADDY_API_SECRET:${GODADDY_API_SECRET}
+      - ACME_AGREE=true
+      - ENABLE_TELEMETRY=false
+    networks:
+      - proxy
 #
 #   c2ostudio:
 #     image: 'test-caddy'
