@@ -3,7 +3,7 @@ version: "3.7"
 services:
   reverse-proxy:
     image: traefik:v1.6.5 #The official Traefik docker image
-    command: --api --docker --logLevel=DEBUG
+    command: --api --docker
     ports:
       - "80:80"
       - "8080:8080"
