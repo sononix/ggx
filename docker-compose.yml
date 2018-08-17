@@ -27,7 +27,7 @@ services:
 
   tremage:
     image: 'test-caddy:latest'
-    command: -agree -ca "https://acme-staging-v02.api.letsencrypt.org/directory" -email "admin@tremage.com"
+    command: -agree
     labels:
       - "traefik.enable=true"
       - "traefik.backend=tremage"
