@@ -9,7 +9,7 @@ services:
       - "8080:8080"
       - "443:443"
     labels:
-      - "traefik.frontend.rule=Host: somers.co, www.somers.co"
+      - "traefik.frontend.rule=Host: sononix.com, www.sononix.com"
       - "traefik.enable=true"
       - "traefik.backend=reverse-proxy"
       - "traefik.docker.network=proxy"
