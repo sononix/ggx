@@ -18,8 +18,8 @@ services:
       - "./traefik.toml:/traefik.toml"
       - "./acme.json:/acme.json"
     environment:
-      - GODADDY_API_KEY=${GODADDY_API_KEY}
-      - GODADDY_API_SECRET=${GODADDY_API_SECRET}
+      - GODADDY_API_KEY: ${GODADDY_API_KEY}
+      - GODADDY_API_SECRET: ${GODADDY_API_SECRET}
     networks:
       - proxy
     restart:
@@ -27,7 +27,7 @@ services:
 
   tremage:
     image: 'test-caddy:latest'
-    command: --api --docker --logLevel=DEBUG -agree=true
+    command: --api --docker --logLevel=DEBUG
     labels:
       - "traefik.enable=true"
       - "traefik.backend=tremage"
@@ -40,8 +40,8 @@ services:
       - "./tremage:/srv"
       # - $PWD/.caddy:/etc/caddycerts
     environment:
-      - GODADDY_API_KEY=${GODADDY_API_KEY}
-      - GODADDY_API_SECRET=${GODADDY_API_SECRET}
+      - GODADDY_API_KEY: ${GODADDY_API_KEY}
+      - GODADDY_API_SECRET: ${GODADDY_API_SECRET}
       - ACME_AGREE=true
       - ENABLE_TELEMETRY=false
     networks:
