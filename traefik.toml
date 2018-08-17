@@ -12,7 +12,7 @@ email = "test@traefik.io"
 storage = "acme.json"
 onHostRule = true
 acmeLogging = true
-entryPoint = "https"
+# entryPoint = "https"
 
 
 [acme.dnsChallenge]
