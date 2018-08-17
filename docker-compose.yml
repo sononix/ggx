@@ -35,6 +35,7 @@ services:
       - "traefik.docker.network=proxy"
       - "traefik.frontend.entryPoints:http,https"
       - "traefik.port=2015"
+      - "traefik.port=443"
     volumes:
       - "./Caddyfile:/etc/Caddyfile"
       - "./tremage:/srv"
