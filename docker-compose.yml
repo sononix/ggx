@@ -6,7 +6,6 @@ services:
     command: --web --docker --logLevel=DEBUG
     ports:
       - "80:80"
-      - "7000:8080"
       - "443:443"
     labels:
       - "traefik.frontend.rule=Host: nua.media, www.nua.media"
