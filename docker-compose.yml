@@ -5,11 +5,15 @@ services:
     image: traefik:v1.6.5 #The official Traefik docker image
     command: --web --docker --logLevel=DEBUG
     ports:
+      - "80:80"
       - "8080:8080"
       - "443:443"
     labels:
       - "traefik.frontend.rule=Host: nua.media, www.nua.media"
-      - "traefik.port=80"
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+      - "traefik.backend=reverse-proxy"
+      - "traefik.docker.network=proxy"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock #So that Traefik can listen to the Docker events
       - $PWD/traefik.toml:/traefik.toml
@@ -22,16 +26,16 @@ services:
       - proxy
     restart:
       always
-  # 
+  #
   # tremage:
   #   image: 'test-caddy:latest'
   #   labels:
-  #     - "traefik.backend=tremage"
-  #     - "traefik.frontend.rule=Host:www.tremage.com,tremage.com"
-  #     - "traefik.docker.network=proxy"
-  #     - "traefik.frontend.entryPoints: http,https"
-  #     - "traefik.port=2015"
-  #     - "traefik.port=443"
+      # - "traefik.backend=tremage"
+      # - "traefik.frontend.rule=Host:www.tremage.com,tremage.com"
+      # - "traefik.docker.network=proxy"
+      # - "traefik.frontend.entryPoints: http,https"
+      # - "traefik.port=2015"
+      # - "traefik.port=443"
   #   volumes:
   #     - $PWD/Caddyfile:/etc/Caddyfile
   #     - $PWD/tremage:/srv
