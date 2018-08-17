@@ -1,7 +1,7 @@
 defaultEntryPoints = ["http", "https"]
 [entryPoints]
   [entryPoints.http]
-  address = ":8080"
+  address = ":80"
     [entryPoints.http.redirect]
     entryPoint = "https"
   [entryPoints.https]
@@ -13,8 +13,8 @@ storage = "acme.json"
 onHostRule = true
 acmeLogging = true
 entryPoint = "https"
-[acme.httpChallenge]
-entryPoint = "http"
+
+
 [acme.dnsChallenge]
   provider = "godaddy"
 [[acme.domain]]
