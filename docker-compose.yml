@@ -27,9 +27,9 @@ services:
 
   tremage:
     image: 'test-caddy:latest'
-    command: --api --docker --logLevel=DEBUG
+    command: --api --docker --logLevel=DEBUG -agree=true
     labels:
-      - "traefik.enable=false"
+      - "traefik.enable=true"
       - "traefik.backend=tremage"
       - "traefik.frontend.rule=Host:www.tremage.com,tremage.com"
       - "traefik.docker.network=proxy"
