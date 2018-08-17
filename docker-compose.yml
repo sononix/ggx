@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 
 services:
   reverse-proxy:
@@ -24,6 +24,7 @@ services:
 
   tremage:
     image: 'test-caddy:latest'
+    command: --api --docker --logLevel=DEBUG
     labels:
       - "traefik.enable=false"
       - "traefik.backend=tremage"
