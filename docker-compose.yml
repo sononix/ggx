@@ -3,7 +3,7 @@ version: "3.7"
 services:
   reverse-proxy:
     image: traefik:v1.6.5 #The official Traefik docker image
-    command: --api --docker
+    command: --api --docker --logLevel=DEBUG
     ports:
       - "80:80"
       - "8080:8080"
@@ -25,27 +25,27 @@ services:
     restart:
       always
 
-  tremage:
-    image: 'test-caddy:latest'
-    command: -agree
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=tremage"
-      - "traefik.frontend.rule=Host:www.tremage.com,tremage.com"
-      - "traefik.docker.network=proxy"
-      - "traefik.frontend.entryPoints:http,https"
-      - "traefik.port=2015"
-    volumes:
-      - "./Caddyfile:/etc/Caddyfile"
-      - "./tremage:/srv"
-      # - $PWD/.caddy:/etc/caddycerts
-    environment:
-      - GODADDY_API_KEY
-      - GODADDY_API_SECRET
-      - ACME_AGREE=true
-      - ENABLE_TELEMETRY=false
-    networks:
-      - proxy
+  # tremage:
+  #   image: 'test-caddy:latest'
+  #   command: -agree
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.backend=tremage"
+  #     - "traefik.frontend.rule=Host:www.tremage.com,tremage.com"
+  #     - "traefik.docker.network=proxy"
+  #     - "traefik.frontend.entryPoints:http,https"
+  #     - "traefik.port=2015"
+  #   volumes:
+  #     - "./Caddyfile:/etc/Caddyfile"
+  #     - "./tremage:/srv"
+  #     # - $PWD/.caddy:/etc/caddycerts
+  #   environment:
+  #     - GODADDY_API_KEY
+  #     - GODADDY_API_SECRET
+  #     - ACME_AGREE=true
+  #     - ENABLE_TELEMETRY=false
+  #   networks:
+  #     - proxy
 
 networks:
   proxy:
