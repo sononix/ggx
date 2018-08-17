@@ -17,6 +17,9 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock" #So that Traefik can listen to the Docker events
       - "./traefik.toml:/traefik.toml"
       - "./acme.json:/acme.json"
+    environment:
+      - GODADDY_API_KEY=${GODADDY_API_KEY}
+      - GODADDY_API_SECRET=${GODADDY_API_SECRET}
     networks:
       - proxy
     restart:
